@@ -1,4 +1,6 @@
 /** https://leetcode.com/problems/add-two-numbers/ **/
+
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -54,12 +56,15 @@ void set_value(unsigned int position, struct ListNode* linked_number, unsigned i
     }
 
     current_address->next = (struct ListNode*) malloc(sizeof(struct ListNode));
-    current_address->next->val = (int)value;
+    current_address->val = (int)value;
+    current_address->next->next = NULL;
+    current_address->next->val = 0;
+    
 }
 
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
 {
-    struct ListNode* answer = (struct ListNode*) malloc(sizeof(struct ListNode));;
+    struct ListNode* answer = (struct ListNode*) malloc(sizeof(struct ListNode));
     unsigned int depth = 0;
     unsigned int v1 = 0;
     unsigned int v2 = 0;
@@ -82,11 +87,7 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
             {
                 set_value(depth, answer, 1);
             }
-        }
 
-        /* Breaks the loop if there are no valid values to be added */
-        if (!keep_summing && !pass_ten)
-        {
             break;
         }
 
@@ -132,6 +133,8 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
             set_value(depth, answer, v3);
             depth += 1;
         }
+
     }
+
     return answer;
 }
