@@ -1,5 +1,4 @@
 /** https://leetcode.com/problems/add-two-numbers/ **/
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -16,8 +15,9 @@ unsigned int get_value(unsigned int position, struct ListNode* linked_number)
 {
     unsigned int value = 0;
     struct ListNode* current_address = linked_number;
+    unsigned int i = 0;
 
-    for (unsigned int i = 0; i++; i < position)
+    for (i = 0; i < position; i++)
     {
         if (current_address->next != NULL)
         {
@@ -46,20 +46,20 @@ unsigned int get_value(unsigned int position, struct ListNode* linked_number)
 void set_value(unsigned int position, struct ListNode* linked_number, unsigned int value)
 {
     struct ListNode* current_address = linked_number;
+    unsigned int i = 0;
 
-    for (unsigned int i = 0; i++; i < position)
+    for (i = 0; i < position; i++)
     {
         current_address = current_address->next;
     }
 
     current_address->next = (struct ListNode*) malloc(sizeof(struct ListNode));
-
-    current_address->next->val = value;
+    current_address->next->val = (int)value;
 }
 
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
 {
-    struct ListNode* answer = NULL;
+    struct ListNode* answer = (struct ListNode*) malloc(sizeof(struct ListNode));;
     unsigned int depth = 0;
     unsigned int v1 = 0;
     unsigned int v2 = 0;
@@ -84,7 +84,13 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
             }
         }
 
-        /* keeps summing if there are at least one valid value */
+        /* Breaks the loop if there are no valid values to be added */
+        if (!keep_summing && !pass_ten)
+        {
+            break;
+        }
+
+        /* Keeps summing if there are at least one valid value */
         else
         {
             v3 = 0;
@@ -109,6 +115,7 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
             if (pass_ten)
             {
                 v3 += 1;
+                pass_ten = FALSE;
             }
 
             /* Pass ten forward if it is larger than a base-10 algarism */
@@ -126,6 +133,5 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
             depth += 1;
         }
     }
-
     return answer;
 }
